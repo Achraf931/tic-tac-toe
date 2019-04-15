@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Gilroy';
+    color: white;
+}
+.heightMax{
+    height: 100vh;
+}
+#game
+{
+    width: 600px;
+    height: 600px;
+    overflow: auto;
+    margin: auto;
+    padding: 10px;
+}
+.bg-purple{
+    background-color: #340350;
+}

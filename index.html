@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="vendor/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fa-5.5.0-web/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <title>Tic-Tac-Toe</title>
+</head>
+<body>
+<section class="container-fluid bg-purple heightMax d-flex justify-content-center flex-column pt-5 p-4">
+    <h1 class="text-center text-white">Jeu du Tic-Tac-Toe</h1>
+    <div id="response" style="font-size: 40px; text-align: center"></div>
+    <div class="row  p-4 rounded" id="game">
+        <div class="w-100 d-flex flex-row">
+            <div id="case1" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-right-0 border-left-0 border-top-0 d-flex justify-content-center align-items-center"></div>
+            <div id="case2" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-top-0 d-flex justify-content-center align-items-center"></div>
+            <div id="case3" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-left-0 border-top-0 border-right-0 d-flex justify-content-center align-items-center"></div>
+        </div>
+        <div class="w-100 d-flex flex-row">
+            <div id="case4" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-right-0 border-top-0 border-bottom-0 border-left-0 d-flex justify-content-center align-items-center"></div>
+            <div id="case5" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-top-0 border-bottom-0 d-flex justify-content-center align-items-center"></div>
+            <div id="case6" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-left-0 border-top-0 border-bottom-0 border-right-0 d-flex justify-content-center align-items-center"></div>
+        </div>
+        <div class="w-100 d-flex flex-row">
+            <div id="case7" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-right-0 border-bottom-0 border-left-0 d-flex justify-content-center align-items-center"></div>
+            <div id="case8" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-bottom-0 d-flex justify-content-center align-items-center"></div>
+            <div id="case9" style="font-size: 40px"
+                 class="case bg-purple col-4 border border-white border-left-0 border-right-0 border-bottom-0 d-flex justify-content-center align-items-center"></div>
+        </div>
+    </div>
+</section>
+
+<script src="assets/js/jquery-3.3.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="vendor/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    let caseGame = document.querySelectorAll(".case")
+    let turn = 0
+    let players = ['X', 'O']
+
+    let winner = function (caseGame, players, turn) {
+        if (caseGame[0].innerHTML == players[turn] &&
+        caseGame[1].innerHTML == players[turn] &&
+        caseGame[2].innerHTML == players[turn] ||
+        caseGame[3].innerHTML == players[turn] &&
+        caseGame[4].innerHTML == players[turn] &&
+        caseGame[5].innerHTML == players[turn] ||
+        caseGame[6].innerHTML == players[turn] &&
+        caseGame[7].innerHTML == players[turn] &&
+        caseGame[8].innerHTML == players[turn] ||
+        caseGame[0].innerHTML == players[turn] &&
+        caseGame[4].innerHTML == players[turn] &&
+        caseGame[8].innerHTML == players[turn] ||
+        caseGame[2].innerHTML == players[turn] &&
+        caseGame[4].innerHTML == players[turn] &&
+        caseGame[6].innerHTML == players[turn] ||
+        caseGame[0].innerHTML == players[turn] &&
+        caseGame[3].innerHTML == players[turn] &&
+        caseGame[6].innerHTML == players[turn] ||
+        caseGame[1].innerHTML == players[turn] &&
+        caseGame[4].innerHTML == players[turn] &&
+        caseGame[7].innerHTML == players[turn] ||
+        caseGame[2].innerHTML == players[turn] &&
+        caseGame[5].innerHTML == players[turn] &&
+        caseGame[8].innerHTML == players[turn]){
+            return true
+        }
+    }
+    let noWinner = function (caseGame) {
+        for (let i = 0; i < caseGame.length; i++) {
+            if (caseGame[i].innerHTML.length == 0)
+            return false;
+        }
+        return true;
+    }
+    for (let i = 0; i < caseGame.length; i++) {
+        turn = 0
+        caseGame[i].addEventListener("click", function () {
+            if (this.innerHTML.length !== 0) {
+                let msg = document.createElement("p")
+                msg.innerText = "La case est déjà prise !"
+                document.querySelector('#response').appendChild(msg)
+            } else {
+                this.innerHTML = players[turn]
+                gameOver = winner(caseGame, players, turn)
+                if (gameOver) {
+                    let msg = document.createElement("p")
+                    msg.innerText = "le joueur " + players[turn] + " est le vainqueur !"
+                    document.querySelector('#response').appendChild(msg)
+                } else if (noWinner(caseGame)) {
+                    for (i = 0; i < caseGame.length; i++) {
+                    }
+                    let msg = document.createElement("p")
+                    msg.innerText = 'Match nul, aucun gagnant !'
+                    document.querySelector('#response').appendChild(msg)
+                }
+                turn++
+                turn = turn % 2
+            }
+        });
+    }
+</script>
+</body>
+</html>
